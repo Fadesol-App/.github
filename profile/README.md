@@ -120,7 +120,7 @@ RAM-based messaging app
 Project concept:
 A messaging app where one can generate an account, like mullvad VPN does and immedietly get access to the messaging service. It will generate a random account login and ID, and then you get to choose a nickname/name for the user.
 
-<img src="./android_ui.png" alt="Boomerang Art" width="500" height="500" style="border-radius: 25px;" />
+<img src="./android_ui.png" alt="Boomerang Art" width="250" height="500" style="border-radius: 25px;" />
 
 
 

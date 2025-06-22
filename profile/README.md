@@ -142,7 +142,7 @@ Summarized, your local device ONLY stores information on your account ID, nickna
 ### Boomerang
 När ett meddelande skickas till en klient så förfrågar den alltid för en peer-to-peer anslutning med meddelandet. Så om båda klienter är online och det skickas ett meddelande så frågar den, den andras klient för peer-to-peer och den andras klient godkänner det automatiskt. Så framtida meddelanden behöver inte servern för kommunication, tills peer-to-peer anslutningen bryts. På så sätt kan det optimera användningen på serverns processor extremt mycket. Det enda servern är värdefull till då är att spara meddelanden i RAM om användaren är inaktiv tills användaren blir online igen och skickar det meddelande i RAM. När båda är online och skickar uppföljningsfrågor eller bara meddelanden generellt till varandra så kommer det inte behövas någon mellanhands server för det. Borde gå att lösa för klienten genom att implementera en variabel som är true eller false beroende på om den är peer-to-peer ansluten eller inte. Så varje gång man skickar ett meddelande så kollar den en if ansluten peer to peer, skicka där. om inte, skicka genom servern?
 
-<img src="./boomerang_concept.png" alt="Boomerang Art" width="500" height="500" style="border-radius: 5px;" />
+<img src="./boomerang_concept.png" alt="Boomerang Art" width="500" height="500" style="border-radius: 25px;" />
 
 
 

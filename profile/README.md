@@ -138,27 +138,34 @@ This makes it possible in the future of a later version for a user to read the h
 
 Summarized, your local device ONLY stores information on your account ID, nickname and messages you have sent, not recieved. Meaning if a user deletes the app it will permanently delete all messages said by the user and all connections to the user as the ID is gone.
 
-## Ideas/Concepts
-
-### Boomerang
-När ett meddelande skickas till en klient så förfrågar den alltid för en peer-to-peer anslutning med meddelandet. Så om båda klienter är online och det skickas ett meddelande så frågar den, den andras klient för peer-to-peer och den andras klient godkänner det automatiskt. Så framtida meddelanden behöver inte servern för kommunication, tills peer-to-peer anslutningen bryts. På så sätt kan det optimera användningen på serverns processor extremt mycket. Det enda servern är värdefull till då är att spara meddelanden i RAM om användaren är inaktiv tills användaren blir online igen och skickar det meddelande i RAM. När båda är online och skickar uppföljningsfrågor eller bara meddelanden generellt till varandra så kommer det inte behövas någon mellanhands server för det. Borde gå att lösa för klienten genom att implementera en variabel som är true eller false beroende på om den är peer-to-peer ansluten eller inte. Så varje gång man skickar ett meddelande så kollar den en if ansluten peer to peer, skicka där. om inte, skicka genom servern?
-
-<img src="./boomerang_concept.png" alt="Boomerang Art" width="500" height="500" style="border-radius: 25px;" />
 
 
+### Adding Users ( QR Code )
+The QR Code for adding users should include 3 values - this is important on all applications.
+The QR Code should include:
+- name
+- uuid
+- provider
 
-### Random chat
-Med en ny funktion till servern som gör att om två UUID’s letar efter någon parkopplas dom i en chatt och man kan diskutera vad man vill med en helt random främling. Alternativt inkludera ”tags” som typ lifehacks, programmering, sport, etc. Då matchar den din tag med den andra UUID som har samma tag, typ som en sökmotor
+This is so the application knows that the QR Code is valid,
 
-Kan lösas genom att kalla på funktion 5 för exempel. Då sätter servern ditt UUID i en letande lista, efter säg 10 sekunder så väljer den ett annat UUID i listan och servern svarar tillbaka med den personens UUID och nickname. Likvärdig för den andra personen. 
+- name: the users name
+- uuid: the users uuid
+- prodiver: the applications name Fadesol
 
-Finns det ingen annan i listan och du är den enda som letar och 10 sekunder har gått returnerar servern med ett meddelande att ingen annan är aktivt letande just nu.
 
-Alltså, om jag skickar:
-{typ 5, tag=programmering}
-så returnerar servern med:
-{UUID=”främlingens UUID”, nickname=”främlingens nickname”}
+Example of QR Code URL in Kotlin
+```kt
+private fun constructQRCodeLink(context: Context) : String {
+    val route = "/add"
+    val provider = context.getString(R.string.app_name)
+    return "app://private.message.app?route=$route&name=$name&uuid=$uuid&provider=$provider"
+}
+```
+In the above example the route is **non important** as it is just for the application route system.
+The first section is for android to know what application to open the QR code in, this is **not important**
+and just used when the QR Code is scanned outside the application in the camera **[ May be removed ]**
+The important data is **provider, name and uuid** which is variables in this code.
 
-Då kan man implementera en ny funktion i appen som liknar Omegle, men för att förhindra folk att bara överge dig kan man sätta en 20 minuter cooldown i klienten, så folk bara inte hoppar över dig direkt utan är fast med dig tills 20 minuter har gått. Då får man se om man vill fortsätta prata eller inte. För det kan knappast vara tråkigare att bara vänta 20 minuter istället för att faktiskt diskutera tills 20 minuter gått.
-
-Varför denna funktion? Lärorikt. Du kan lära dig prata med människor och kanske skaffa någon med likvärdiga tankar att prata med, helt anonymt utan att det händer något ifall man gör misstag
+The order in which these come is unimportant, it is just important that these are inqluded and
+consistent over all applications.

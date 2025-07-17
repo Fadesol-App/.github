@@ -151,7 +151,7 @@ This is so the application knows that the QR Code is valid,
 
 - name: the users name
 - uuid: the users uuid
-- prodiver: the applications name Fadesol
+- prodiver: the provider name
 
 
 Example of QR Code URL in Kotlin
